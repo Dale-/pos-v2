@@ -2,6 +2,7 @@ var moment = require('moment');
 var _ = require('lodash');
 var Item = require('./item.js');
 var CartItem = require('./cartItem.js');
+var Calculator = require('./calculator');
 var Promotion = require('./promotion.js');
 
 var Cart = function () {
@@ -81,15 +82,6 @@ Cart.prototype.getPromotionMoney = function() {
     return promotionMoney;
 };
 
-Cart.prototype.getTotal = function() {
-
-    var total = 0;
-    _.forEach(this.cartItems, function(cartItem) {
-        total += cartItem.getSubtotal();
-    });
-    return total - this.getPromotionMoney();
-};
-
 Cart.prototype.toCartItems = function(tags) {
 
     var _this = this;
@@ -124,13 +116,15 @@ Cart.prototype.toCartItems = function(tags) {
 
 Cart.prototype.toInventory = function() {
 
+    var calculator = new Calculator();
+
     var list =  '***<没钱赚商店>购物清单***\n' +
                 '打印时间:' + moment().format('YYYY年-MM月-DD日 HH:mm:ss') + '\n' +
                 '----------------------\n' +
                 this.getCartItemsInformation() +
                 '----------------------\n' +
                 this.getPromotionInformation() +
-                '总计：' + this.getTotal().toFixed(2) + '(元)\n' +
+                '总计：' + calculator.calculate(this).toFixed(2) + '(元)\n' +
                 this.getPromotionMoneyInformation() +
                 '********************** ';
 
