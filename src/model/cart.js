@@ -14,7 +14,7 @@ Cart.prototype.getCartItemsInformation = function() {
     _.forEach(this.cartItems, function(cartItem) {
         cartItemsInformation += cartItem.getCartItemInformation();
     });
-    
+
     return cartItemsInformation;
 };
 
@@ -34,6 +34,7 @@ Cart.prototype.getPromotionCartItems = function() {
             promotionCartItems.push(cartItem);
         }
     });
+
     return promotionCartItems;
 };
 
@@ -42,17 +43,17 @@ Cart.prototype.getPromotionInformation = function() {
     var promotionInformation = '';
     var promotionCartItems = this.getPromotionCartItems();
 
-
     if(promotionCartItems.length != 0) {
         promotionInformation = '挥泪赠送商品：\n';
 
         _.forEach(promotionCartItems, function (promotionCartItem) {
             promotionInformation += '名称：' + promotionCartItem.getName() + '，' +
-            '数量：' + promotionCartItem.promotionNum + promotionCartItem.getUnit() + '\n';
+                                    '数量：' + promotionCartItem.promotionNum + promotionCartItem.getUnit() + '\n';
         });
 
         promotionInformation += '----------------------\n';
     }
+
     return promotionInformation;
 };
 
@@ -63,6 +64,7 @@ Cart.prototype.getPromotionMoneyInformation = function() {
     if(promotionMoney) {
         promotionMoneyInformation = '节省：' + promotionMoney.toFixed(2) + '(元)\n';
     }
+    
     return promotionMoneyInformation;
 };
 
