@@ -81,7 +81,7 @@ describe('Pos Inventory', function() {
             expect(expectResult).toBe(result);
         });
 
-        it('should return same cartItem of "-" record with promotion', function() {
+        it('should return different cartItems with promotion', function() {
 
             var input = ['ITEM000001-3', 'ITEM000002'];
             expectResult = PrintInventory(input);
