@@ -1,7 +1,5 @@
 var moment = require('moment');
 var _ = require('lodash');
-var Item = require('./item.js');
-var CartItem = require('./cartItem.js');
 var Calculator = require('./calculator');
 var Promotion = require('./promotion.js');
 
