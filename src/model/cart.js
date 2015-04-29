@@ -15,8 +15,8 @@ Cart.prototype.getCartItemsInformation = function() {
 
     _.forEach(this.cartItems, function(cartItem) {
 
-        cartItemsInformation += '名称：' + cartItem.item.name + '，数量：' + cartItem.num + cartItem.item.unit +
-                                '，单价：' + cartItem.item.price.toFixed(2) + '(元)，' +
+        cartItemsInformation += '名称：' + cartItem.getName() + '，数量：' + cartItem.num + cartItem.getUnit() +
+                                '，单价：' + cartItem.getPrice().toFixed(2) + '(元)，' +
                                  '小计：' + cartItem.getSubtotal().toFixed(2) + '(元)\n';
     });
     return cartItemsInformation;
@@ -30,7 +30,7 @@ Cart.prototype.getPromotionCartItems = function() {
     _.forEach(this.cartItems, function(cartItem) {
 
         var promotion = _.find(promotions, function(promotion) {
-            return cartItem.item.barcode === promotion;
+            return cartItem.getBarcode() === promotion;
         });
 
         if(promotion && cartItem.num >= 3) {
@@ -51,8 +51,8 @@ Cart.prototype.getPromotionInformation = function() {
         promotionInformation = '挥泪赠送商品：\n';
 
         _.forEach(promotionCartItems, function (promotionCartItem) {
-            promotionInformation += '名称：' + promotionCartItem.item.name + '，' +
-            '数量：' + promotionCartItem.promotionNum + promotionCartItem.item.unit + '\n';
+            promotionInformation += '名称：' + promotionCartItem.getName() + '，' +
+            '数量：' + promotionCartItem.promotionNum + promotionCartItem.getUnit() + '\n';
         });
 
         promotionInformation += '----------------------\n';
@@ -76,7 +76,7 @@ Cart.prototype.getPromotionMoney = function() {
     var promotionMoney = 0;
 
     _.forEach(promotionCartItems, function(promotionCartItem) {
-        promotionMoney += promotionCartItem.item.price * promotionCartItem.promotionNum;
+        promotionMoney += promotionCartItem.getPrice() * promotionCartItem.promotionNum;
     });
 
     return promotionMoney;
