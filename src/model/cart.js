@@ -12,11 +12,9 @@ Cart.prototype.getCartItemsInformation = function() {
     var cartItemsInformation = '';
 
     _.forEach(this.cartItems, function(cartItem) {
-
-        cartItemsInformation += '名称：' + cartItem.getName() + '，数量：' + cartItem.num + cartItem.getUnit() +
-                                '，单价：' + cartItem.getPrice().toFixed(2) + '(元)，' +
-                                 '小计：' + cartItem.getSubtotal().toFixed(2) + '(元)\n';
+        cartItemsInformation += cartItem.getCartItemInformation();
     });
+    
     return cartItemsInformation;
 };
 

@@ -24,6 +24,11 @@ CartItem.prototype.getPrice = function() {
     return this.item.price;
 };
 
+CartItem.prototype.getCartItemInformation = function() {
+    return '名称：' + this.getName() + '，数量：' + this.num + this.getUnit() +
+           '，单价：' + this.getPrice().toFixed(2) + '(元)，' +
+           '小计：' + this.getSubtotal().toFixed(2) + '(元)\n';
+};
 
 
 
