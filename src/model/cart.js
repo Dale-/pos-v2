@@ -4,7 +4,7 @@ var Cart = function () {
 
 };
 
-Cart.prototype.toList = function() {
+Cart.prototype.toInventory = function() {
 
     var list =  '***<没钱赚商店>购物清单***' +
                 '打印时间:' + moment().format('YYYY年-MM月-DD日 HH:mm:ss') +
