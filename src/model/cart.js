@@ -7,29 +7,30 @@ var Cart = function () {
     this.cartItems = [];
 };
 
-Cart.prototype.getCartItemsInformation = function() {
+Cart.prototype.getCartItemsText = function() {
 
-    var cartItemsInformation = '';
+    var cartItemsText = '';
 
     _.forEach(this.cartItems, function(cartItem) {
-        cartItemsInformation += cartItem.getCartItemInformation();
+        cartItemsText += cartItem.getCartItemText();
     });
 
-    return cartItemsInformation;
+    return cartItemsText;
 };
 
 Cart.prototype.getPromotionCartItems = function() {
 
     var promotionCartItems = [];
-    var promotions = Promotion.loadPromotions()[0].barcodes;
+    var promotionBarcodes = Promotion.loadPromotions()[0].barcodes;
 
     _.forEach(this.cartItems, function(cartItem) {
 
-        var promotion = _.find(promotions, function(promotion) {
-            return cartItem.getBarcode() === promotion;
+        var barcode = cartItem.getBarcode();
+        var promotionBarcode = _.find(promotionBarcodes, function(promotionBarcode) {
+            return cartItem.getBarcode() === promotionBarcode;
         });
 
-        if(promotion && cartItem.num >= 3) {
+        if(promotionBarcode && cartItem.num >= 3) {
             cartItem.promotionNum = Math.floor(cartItem.num/3);
             promotionCartItems.push(cartItem);
         }
@@ -38,34 +39,34 @@ Cart.prototype.getPromotionCartItems = function() {
     return promotionCartItems;
 };
 
-Cart.prototype.getPromotionInformation = function() {
+Cart.prototype.getPromotionText = function() {
 
-    var promotionInformation = '';
+    var promotionText = '';
     var promotionCartItems = this.getPromotionCartItems();
 
     if(promotionCartItems.length != 0) {
-        promotionInformation = '挥泪赠送商品：\n';
+        promotionText = '挥泪赠送商品：\n';
 
         _.forEach(promotionCartItems, function (promotionCartItem) {
-            promotionInformation += '名称：' + promotionCartItem.getName() + '，' +
+            promotionText += '名称：' + promotionCartItem.getName() + '，' +
                                     '数量：' + promotionCartItem.promotionNum + promotionCartItem.getUnit() + '\n';
         });
 
-        promotionInformation += '----------------------\n';
+        promotionText += '----------------------\n';
     }
 
-    return promotionInformation;
+    return promotionText;
 };
 
-Cart.prototype.getPromotionMoneyInformation = function() {
+Cart.prototype.getPromotionMoneyText = function() {
 
     var promotionMoney = this.getPromotionMoney();
-    var promotionMoneyInformation = '';
+    var promotionMoneyText = '';
     if(promotionMoney) {
-        promotionMoneyInformation = '节省：' + promotionMoney.toFixed(2) + '(元)\n';
+        promotionMoneyText = '节省：' + promotionMoney.toFixed(2) + '(元)\n';
     }
 
-    return promotionMoneyInformation;
+    return promotionMoneyText;
 };
 
 Cart.prototype.getPromotionMoney = function() {
@@ -87,11 +88,11 @@ Cart.prototype.toInventory = function() {
     var list =  '***<没钱赚商店>购物清单***\n' +
                 '打印时间:' + moment().format('YYYY年-MM月-DD日 HH:mm:ss') + '\n' +
                 '----------------------\n' +
-                this.getCartItemsInformation() +
+                this.getCartItemsText() +
                 '----------------------\n' +
-                this.getPromotionInformation() +
+                this.getPromotionText() +
                 '总计：' + calculator.calculate(this).toFixed(2) + '(元)\n' +
-                this.getPromotionMoneyInformation() +
+                this.getPromotionMoneyText() +
                 '********************** ';
 
     return list;
