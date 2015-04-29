@@ -82,38 +82,6 @@ Cart.prototype.getPromotionMoney = function() {
     return promotionMoney;
 };
 
-Cart.prototype.toCartItems = function(tags) {
-
-    var _this = this;
-
-    _.forEach(tags, function(tag) {
-
-        var count = 1;
-
-        var array = tag.split('-');
-        var barcode = array[0];
-        if(array[1]) {
-            count = array[1];
-        }
-
-        var item = _.find(Item.loadAllItems(), function(item) {
-           return item.barcode === barcode;
-        });
-
-        var existCartItem = _.find(_this.cartItems, function(cartItem) {
-           return cartItem.item.barcode === item.barcode;
-        });
-
-        if(existCartItem) {
-            existCartItem.num += count;
-        } else {
-            _this.cartItems.push(new CartItem(item, count));
-        }
-
-    });
-    return this.cartItems;
-};
-
 Cart.prototype.toInventory = function() {
 
     var calculator = new Calculator();

@@ -1,8 +1,9 @@
 var Cart = require('./model/cart');
+var Scanner = require('./scanner');
 
 var printInventory = function(input) {
     var cart = new Cart();
-    cart.toCartItems(input);
+    Scanner(input, cart);
     return cart.toInventory();
 };
 
