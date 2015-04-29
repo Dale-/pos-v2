@@ -98,8 +98,14 @@ Cart.prototype.toCartItems = function(tags) {
 
         var count = 1;
 
+        var array = tag.split('-');
+        var barcode = array[0];
+        if(array[1]) {
+            count = array[1];
+        }
+
         var item = _.find(Item.loadAllItems(), function(item) {
-           return item.barcode === tag;
+           return item.barcode === barcode;
         });
 
         var existCartItem = _.find(_this.cartItems, function(cartItem) {
@@ -107,7 +113,7 @@ Cart.prototype.toCartItems = function(tags) {
         });
 
         if(existCartItem) {
-            existCartItem.num++;
+            existCartItem.num += count;
         } else {
             _this.cartItems.push(new CartItem(item, count));
         }

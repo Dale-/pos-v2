@@ -62,7 +62,24 @@ describe('Pos Inventory', function() {
             expect(expectResult).toBe(result);
         });
 
-        
+        it('should return same cartItem of "-" record with promotion', function() {
+
+            var input = ['ITEM000001-3'];
+            expectResult = PrintInventory(input);
+
+            var result = '***<没钱赚商店>购物清单***\n' +
+                '打印时间:' + moment().format('YYYY年-MM月-DD日 HH:mm:ss') + '\n' +
+                '----------------------\n' +
+                '名称：雪碧，数量：3瓶，单价：3.00(元)，小计：9.00(元)\n' +
+                '----------------------\n' +
+                '挥泪赠送商品：\n' +
+                '名称：雪碧，数量：1瓶\n' +
+                '----------------------\n' +
+                '总计：6.00(元)\n' +
+                '节省：3.00(元)\n' +
+                '********************** ';
+            expect(expectResult).toBe(result);
+        });
     });
 
 
