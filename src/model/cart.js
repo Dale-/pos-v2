@@ -1,6 +1,6 @@
 var moment = require('moment');
 var _ = require('lodash');
-var Calculator = require('./calculator');
+var Calculator = require('../calculator');
 var Promotion = require('./promotion.js');
 
 var Cart = function () {
@@ -64,7 +64,7 @@ Cart.prototype.getPromotionMoneyInformation = function() {
     if(promotionMoney) {
         promotionMoneyInformation = '节省：' + promotionMoney.toFixed(2) + '(元)\n';
     }
-    
+
     return promotionMoneyInformation;
 };
 
