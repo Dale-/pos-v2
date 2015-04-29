@@ -6,25 +6,18 @@ var scanner = function(tags, cart) {
 
     _.forEach(tags, function(tag) {
 
-        var count = 1;
-
         var array = tag.split('-');
         var barcode = array[0];
-        if(array[1]) {
-            count = array[1];
-        }
-
-        var item = _.find(Item.loadAllItems(), function(item) {
-            return item.barcode === barcode;
-        });
+        var count = array[1] || 1;
 
         var existCartItem = _.find(cart.cartItems, function(cartItem) {
-            return cartItem.item.barcode === item.barcode;
+            return cartItem.getBarcode() === barcode;
         });
 
         if(existCartItem) {
             existCartItem.num += count;
         } else {
+            var item = _.find(Item.loadAllItems(), 'barcode', barcode);
             cart.cartItems.push(new CartItem(item, count));
         }
 
